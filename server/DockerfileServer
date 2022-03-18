@@ -1,0 +1,7 @@
+FROM node:16.14.0-alpine3.15
+WORKDIR /server
+ENV PATH /server/node_modules/.bin:$PATH
+COPY . /server
+RUN npm config set unsafe-perm true
+RUN npm install -g node-dev
+CMD ["node-dev", "server.js"]
