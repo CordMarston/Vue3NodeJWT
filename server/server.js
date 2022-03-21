@@ -4,6 +4,8 @@ const app = express();
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  // res.header("Access-Control-Allow-Origin", "cookie.cordmarston.com"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 var corsOptions = {
@@ -16,13 +18,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "wtf" });
+  res.json({ message: "the fuck are you looking for?" });
 });
 // routes
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/site.routes')(app);
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 1222;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
@@ -30,6 +33,7 @@ app.listen(PORT, () => {
 // database
 const db = require("./models");
 const Role = db.role;
+const User = db.user;
 
 db.sequelize.sync({force: true}).then(() => {
   console.log('Drop and Resync Db');
@@ -37,6 +41,14 @@ db.sequelize.sync({force: true}).then(() => {
 });
 
 function initial() {
+  var bcrypt = require("bcryptjs");
+  User.create({
+    'firstname': 'Cord',
+    'lastname': 'Marston',
+    'password': bcrypt.hashSync('test123'),
+    'email': 'marston.cord@gmail.com'
+  });
+
   Role.create({
     id: 1,
     name: "user"
@@ -44,11 +56,6 @@ function initial() {
  
   Role.create({
     id: 2,
-    name: "moderator"
-  });
- 
-  Role.create({
-    id: 3,
     name: "admin"
   });
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import corsHeader from './cors-header';
+import corsHeader from './cors-header';
 const API_URL = 'https://api.cordmarston.com/api/auth/';
 class AuthService {
   login(user) {
@@ -7,7 +7,7 @@ class AuthService {
       .post(API_URL + 'signin', {
         email: user.email,
         password: user.password
-      })
+      }, { headers: corsHeader() })
       .then(response => {
         if (response.data.accessToken) {
           localStorage.setItem('user', JSON.stringify(response.data));

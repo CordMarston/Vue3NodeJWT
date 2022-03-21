@@ -1,14 +1,43 @@
 @import './scss/bootstrap/bootstrap.scss';
 
-.card {
-    border-radius:0px!important;
-}
+// .card {
+//     border-radius:0px!important;
+// }
 
 .card-header {
     background-color:#fff!important;
-    font-size:1.5rem;
 }
 
 .card-footer {
     background-color:#fff!important;
+}
+
+@include media-breakpoint-up(sm) {
+    #sidebar {
+        width:240px;
+    }
+
+    #sidebar nav {
+        height: 100vh !important;
+    }
+
+    #content {
+        margin-top:1rem;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    #content {
+        margin-top:5rem;
+    }
+
+    #sidebar {
+        width:100%;
+        position:absolute;
+        z-index:5;
+    }
+
+    #sidebar nav.collapsed-nav .nav-content {
+        display:none;
+    }
 }

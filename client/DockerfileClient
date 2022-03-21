@@ -4,7 +4,10 @@ ENV PATH /client/node_modules/.bin:$PATH
 RUN echo "fs.inotify.max_user_instances=524288" >> /etc/sysctl.conf
 RUN echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf
 RUN echo "fs.inotify.max_queued_events=524288" >> /etc/sysctl.conf
-COPY . /client
+COPY . .
 RUN ls -lh
 RUN npm config set unsafe-perm true
+RUN npm install
+RUN ls -lh
+RUN npm install -g @vue/cli@5.0.3
 CMD ["npm", "run", "serve"]

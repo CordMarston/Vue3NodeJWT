@@ -1,22 +1,31 @@
 <template>
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-dark text-white vh-100" style="width: 240px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none text-white">
-        <font-awesome-icon icon="cookie" class="mx-2" size="2x"/>
-        <span class="fs-4">Cookie Cord</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
+  <nav class="nav flex-column p-3 bg-dark text-white w-100" :class="[!display_nav ? 'collapsed-nav' : 'vh-100']">
+    <div class="d-flex flex-row align-items-center justify-content-between">
+      <div>
+        <a href="/" class="navbar-brand text-white">
+            <font-awesome-icon icon="cookie" class="mx-2 align-middle fs-4"/>
+            <span class="fs-4 align-middle">Cookie Cord</span>
+        </a>
+      </div>
+      <div>
+        <button @click="toggle" class="d-sm-none navbar-toggler text-white d-inline btn-sm" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+          <font-awesome-icon icon="bars"/>
+        </button>
+      </div>
+    </div>
+    <hr class="nav-content">
+    <ul class="nav nav-pills flex-column mb-auto nav-content">
       <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
+        <router-link :to="{ name: 'dashboard'}" class="nav-link text-white" active-class="active">
           <font-awesome-icon icon="house" class="me-2"/>
           Home
-        </a>
+        </router-link>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
+        <router-link :to="{ name: 'sites'}" class="nav-link text-white" active-class="active"> 
           <font-awesome-icon icon="globe" class="me-2"/>
           Sites
-        </a>
+        </router-link>
       </li>
       <li>
         <a href="#" class="nav-link text-white">
@@ -49,10 +58,10 @@
         </a>
       </li>
     </ul>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-0">
+    <hr class="nav-content">
+    <ul class="nav nav-pills flex-column mb-0 nav-content">
       <li class="nav-item">
-        <router-link :to="{ name: 'logout'}" class="nav-link text-white"> 
+        <router-link :to="{ name: 'logout'}" class="nav-link text-white" active-class="active"> 
           <font-awesome-icon icon="arrow-right-from-bracket" class="me-2"/>
           Logout
         </router-link>
@@ -71,10 +80,21 @@
         <li><a class="dropdown-item" href="#">Sign out</a></li>
       </ul>
     </div>
-  </div>
+  </nav>
 </template>
 <script>
 export default {
-  name: 'LayoutNavigationSidebar'
+  name: 'LayoutNavigationSidebar',
+  data() {
+    return {
+      display_nav: false
+    }
+  },
+  methods: {
+    toggle()
+    {
+      this.display_nav = !this.display_nav;
+    }
+  }
 }
 </script>
